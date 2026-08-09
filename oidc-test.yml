@@ -1,0 +1,20 @@
+name: OIDC Test
+
+on:
+  workflow_dispatch:        # Actions tab la manual-a run panna
+  push:
+    branches: [ main ]      # trust policy la irukka branch ah irukanum
+
+permissions:
+  id-token: write           # idhu illaina OIDC token generate aagaadhu
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::043083733056:role/My-Role
+          role-session-name: gh-oidc-test
+          aws-region: ap-south-1     
